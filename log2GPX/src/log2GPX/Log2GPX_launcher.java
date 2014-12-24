@@ -20,18 +20,26 @@ public class Log2GPX_launcher {
 	@SuppressWarnings("resource")
 	private void run() throws IOException, NullPointerException {
 		
+		///media/mathieu/26E07A43E07A196F/Documents and Settings/Mathieu/Dropbox/4TI_shared/Materiels/VisualisationConfiguration/OF1.png
 		// object to browse folder
-		File folder = new File("/home/mathieu/Dropbox/4TI_local/explorationStrat/data");
+		File folder = new File("./data");
+		//File folder = new File("/media/mathieu/26E07A43E07A196F/Documents and Settings/Mathieu/Dropbox/4TI_local/explorationStrat/data");
 		String[] file = folder.list();
 		int j = 0;
-			
 			// Main loop to treat each file of the previous folder
 			for (int i = 0 ; i < file.length ; i++ ){
-				
+				// to determine all elements discovery time
+				int u = 0 , v = 0 , w = 0 , x = 0 , y = 0 , z = 0;
+				String a = "" , b = "" , c  = "" , d = "" , e  = "", f = "";
+				boolean displayTime = false;
 				// Condition to treat only csv
 				if (file[i].contains("csv")){
+					//Create .csv to analyse strat
+					/*PrintWriter fileWriterAnalysis = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/autoAnalysis/" 
+							+ file[i].subSequence(16, 35) + "_AUTO.csv"  ) );*/
 					// Create GPX and fill head
-					PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" 
+					//PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" 
+					PrintWriter fileWriter = new PrintWriter(new File( "./gpx/"
 							+ file[i].subSequence(16, 35) + ".gpx"  ) );
 					fileWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?> " + "\n" 
 							+ " <gpx xmlns=\"http://www.topografix.com/GPX/1/1\" "
@@ -47,8 +55,7 @@ public class Log2GPX_launcher {
 					// Write waypoints lines using regex
 					if (file[i].contains("OF1")) {
 						String lineMap = "";
-						BufferedReader brMap = new BufferedReader(new FileReader(
-								"/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF1.osm"));
+						BufferedReader brMap = new BufferedReader(new FileReader("./osm/OF1.osm"));
 						brMap.readLine();brMap.readLine();
 						for (int k = 0; k < 6; k++){							
 							lineMap = brMap.readLine();
@@ -60,11 +67,17 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
+							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF2")) {
 						String lineMap = "";
-						BufferedReader brMap = new BufferedReader(new FileReader("/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF2.osm"));
+						BufferedReader brMap = new BufferedReader(new FileReader("./osm/OF2.osm"));
 						brMap.readLine();brMap.readLine();
 						
 						for (int k = 0; k < 6; k++){							
@@ -78,11 +91,17 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
+							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF3")) {
 						String lineMap = "";
-						BufferedReader brMap = new BufferedReader(new FileReader("/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF3.osm"));
+						BufferedReader brMap = new BufferedReader(new FileReader("./osm/OF3.osm"));
 						brMap.readLine();brMap.readLine();
 						
 						for (int k = 0; k < 6; k++){							
@@ -96,11 +115,17 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
+							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF4")) {
 						String lineMap = "";
-						BufferedReader brMap = new BufferedReader(new FileReader("/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF4.osm"));
+						BufferedReader brMap = new BufferedReader(new FileReader("./osm/OF4.osm"));
 						brMap.readLine();brMap.readLine();
 						
 						for (int k = 0; k < 6; k++){							
@@ -114,6 +139,12 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
+							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 							
@@ -128,7 +159,7 @@ public class Log2GPX_launcher {
 					BufferedReader br = null;
 					String line = "";
 					String cvsSplitBy = ";";
-					br = new BufferedReader(new FileReader("/home/mathieu/Dropbox/4TI_local/explorationStrat/data/" + file[i]));
+					br = new BufferedReader(new FileReader("./data/" + file[i]));
 					line = br.readLine();		
 					Long seconds = (long) 0;
 					String lastTouch = "";
@@ -169,8 +200,20 @@ public class Log2GPX_launcher {
 									// write out elements touch
 									if (linepos.length > 6){
 										if (linepos[6].compareTo(lastTouch)!=0 && linepos[6].compareTo("stopSpeak")!=0 && linepos[6].compareTo("")!=0){
-											System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
+											//System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
 											lastTouch = linepos[6];
+												if (u==0 && linepos[6].equals(a)) u=1;
+												if (v==0 && linepos[6].equals(b)) v=1;
+												if (w==0 && linepos[6].equals(c)) w=1;
+												if (x==0 && linepos[6].equals(d)) x=1;
+												if (y==0 && linepos[6].equals(e)) y=1;
+												if (z==0 && linepos[6].equals(f)) z=1;
+												if ( (u+v+w+x+y+z) == 6 && !displayTime){
+													System.out.println("TIME TO DISCOVERY = " 
+															+ Integer.parseInt(linepos[0])/1000 + "s");
+													displayTime = true;
+												}
+												                                         
 										}
 									}
 								} // end of if to write consistent point

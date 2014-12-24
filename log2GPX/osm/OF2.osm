@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+ <osm version='0.6' upload='true' generator='JOSM'>  
+  <node id='-745' action='modify' visible='true' version='1' lat='48.392670' lon='-4.418815 '> <tag k='name' v='flaman' /></node>
+  <node id='-743' action='modify' visible='true' version='1' lat='48.390776' lon='-4.416882 '> <tag k='name' v='méduze' /></node>
+  <node id='-741' action='modify' visible='true' version='1' lat='48.389742' lon='-4.420967 '> <tag k='name' v='lièvre' /></node>
+  <node id='-739' action='modify' visible='true' version='1' lat='48.391282' lon='-4.423541 '> <tag k='name' v='poivron' /></node>
+  <node id='-737' action='modify' visible='true' version='1' lat='48.387957' lon='-4.424858 '> <tag k='name' v='cerise' /></node>
+  <node id='-735' action='modify' visible='true' version='1' lat='48.387222' lon='-4.420974 '> <tag k='name' v='tulipe' /></node>
+</osm>
