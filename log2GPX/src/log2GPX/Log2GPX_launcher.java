@@ -30,9 +30,9 @@ public class Log2GPX_launcher {
 				
 				// Condition to treat only csv
 				if (file[i].contains("csv")){
-				
 					// Create GPX and fill head
-					PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" + file[i].subSequence(16, 35) + ".gpx"  ) );
+					PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" 
+							+ file[i].subSequence(16, 35) + ".gpx"  ) );
 					fileWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?> " + "\n" 
 							+ " <gpx xmlns=\"http://www.topografix.com/GPX/1/1\" "
 							+ "xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" "
@@ -47,7 +47,8 @@ public class Log2GPX_launcher {
 					// Write waypoints lines using regex
 					if (file[i].contains("OF1")) {
 						String lineMap = "";
-						BufferedReader brMap = new BufferedReader(new FileReader("/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF1.osm"));
+						BufferedReader brMap = new BufferedReader(new FileReader(
+								"/home/mathieu/Dropbox/4TI_local/explorationStrat/osm/OF1.osm"));
 						brMap.readLine();brMap.readLine();
 						for (int k = 0; k < 6; k++){							
 							lineMap = brMap.readLine();
@@ -151,7 +152,10 @@ public class Log2GPX_launcher {
 									fileWriter.flush();
 									// add element touched and/or seconds to trackpoint
 									if (linepos.length > 6){
-										fileWriter.println("<name> " + "## " +  linepos[6] + " ##" + " -> " + Integer.parseInt(linepos[0])/1000 + "s" +  " </name>");
+										fileWriter.println("<name> " 
+												+ "## " +  linepos[6] + " ##" 
+												+ " -> " + Integer.parseInt(linepos[0])/1000 
+												+ "s" +  " </name>");
 										fileWriter.flush();
 									}
 									else{
