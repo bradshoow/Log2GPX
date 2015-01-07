@@ -26,6 +26,12 @@ public class Log2GPX_launcher {
 		//File folder = new File("/media/mathieu/26E07A43E07A196F/Documents and Settings/Mathieu/Dropbox/4TI_local/explorationStrat/data");
 		String[] file = folder.list();
 		int j = 0;
+		
+		PrintWriter fileWriterAnalysis = new PrintWriter(new File( "./dataAnalysis/DiscoveryTime.csv"  ) );
+		fileWriterAnalysis.println("Technique;participant;time");
+		fileWriterAnalysis.flush();
+
+		
 			// Main loop to treat each file of the previous folder
 			for (int i = 0 ; i < file.length ; i++ ){
 				// to determine all elements discovery time
@@ -35,8 +41,6 @@ public class Log2GPX_launcher {
 				// Condition to treat only csv
 				if (file[i].contains("csv")){
 					//Create .csv to analyse strat
-					/*PrintWriter fileWriterAnalysis = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/autoAnalysis/" 
-							+ file[i].subSequence(16, 35) + "_AUTO.csv"  ) );*/
 					// Create GPX and fill head
 					//PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" 
 					PrintWriter fileWriter = new PrintWriter(new File( "./gpx/"
@@ -67,12 +71,12 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
-							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==0) a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==1) b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==2) c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==3) d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==4) e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==5) f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF2")) {
@@ -91,12 +95,12 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
-							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==0) a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==1) b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==2) c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==3) d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==4) e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==5) f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF3")) {
@@ -115,12 +119,12 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
-							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==0) a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==1) b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==2) c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==3) d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==4) e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==5) f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 					if (file[i].contains("OF4")) {
@@ -139,12 +143,12 @@ public class Log2GPX_launcher {
 								+ "<name> " + lineMap.subSequence( m.start()+3 , m.end()-1) + "</name>"
 								+ "</wpt>");
 							fileWriter.flush();
-							a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
-							f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==0) a = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==1) b = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==2) c = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==3) d = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==4) e = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
+							if (k==5) f = (String)lineMap.subSequence( m.start()+3 , m.end()-1);
 						}
 					}
 							
@@ -199,17 +203,45 @@ public class Log2GPX_launcher {
 									fileWriter.flush();
 									// write out elements touch
 									if (linepos.length > 6){
-										if (linepos[6].compareTo(lastTouch)!=0 && linepos[6].compareTo("stopSpeak")!=0 && linepos[6].compareTo("")!=0){
+										if (linepos[5].compareTo(lastTouch)!=0 
+												&& linepos[5].compareTo("stopSpeak")!=0
+												&& linepos[5].compareTo("list")!=0
+												&& linepos[5].compareTo("")!=0){
 											//System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
-											lastTouch = linepos[6];
-												if (u==0 && linepos[6].equals(a)) u=1;
-												if (v==0 && linepos[6].equals(b)) v=1;
-												if (w==0 && linepos[6].equals(c)) w=1;
-												if (x==0 && linepos[6].equals(d)) x=1;
-												if (y==0 && linepos[6].equals(e)) y=1;
-												if (z==0 && linepos[6].equals(f)) z=1;
+											lastTouch = linepos[5];
+												if (u==0 && linepos[5].contains(a)) {
+													u=1;
+													System.out.println("u -> " + linepos[5] + " = " + u + " à " + linepos[0] );
+												}
+												if (v==0 && linepos[5].contains(b)) {
+													v=1;
+													System.out.println("v -> " + linepos[5] + " = " + v + " à " + linepos[0] );
+												}
+												if (w==0 && linepos[5].equals(c)){
+													w=1;
+													System.out.println("w -> " + linepos[5] + " = " + w + " à " + linepos[0] );
+												}
+												if (x==0 && (linepos[5].equals(d) || linepos[5].equals("endive") || linepos[5].equals("oignon") ) ){
+													x=1;
+													System.out.println("x -> " + linepos[5] + " = " + x + " à " + linepos[0] );
+												}
+												if (y==0 && linepos[5].equals(e)){
+													y=1;
+													System.out.println("y -> " + linepos[5] + " = " + y + " à " + linepos[0] );
+												}
+												if (z==0 && linepos[5].equals(f)){
+													z=1;
+													System.out.println("z -> " + linepos[5] + " = " + z + " à " + linepos[0] );
+												}
 												if ( (u+v+w+x+y+z) == 6 && !displayTime){
-													System.out.println("TIME TO DISCOVERY = " 
+													fileWriterAnalysis.println(file[i].subSequence(16, 19)
+															+ ";" 
+															+ file[i].subSequence(20, 23)
+															+ ";"
+															+ Integer.parseInt(linepos[0])/1000 +"");
+													fileWriterAnalysis.flush();													
+													System.out.println(file[i].subSequence(16, 35)
+															+ " -> TIME TO DISCOVERY = " 
 															+ Integer.parseInt(linepos[0])/1000 + "s");
 													displayTime = true;
 												}
@@ -232,6 +264,15 @@ public class Log2GPX_launcher {
 					} // end of if contains csv
 				
 				} //end of for
+			
+			//Write the end of DiscoveryFile
+			fileWriterAnalysis.println("DIG;P11;126");
+			fileWriterAnalysis.flush();
+			fileWriterAnalysis.println("DIG;P04;119");
+			fileWriterAnalysis.flush();
+			fileWriterAnalysis.println("EDP;P03;314 ");
+			fileWriterAnalysis.flush();
+			fileWriterAnalysis.close();
 			
 			} //end of run
 	
