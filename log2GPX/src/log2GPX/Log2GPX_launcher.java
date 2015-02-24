@@ -202,31 +202,39 @@ public class Log2GPX_launcher {
 												&& linepos[5].compareTo("stopSpeak")!=0
 												&& linepos[5].compareTo("list")!=0
 												&& linepos[5].compareTo("")!=0){
-											System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
+											//System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
+											//
+											if ((file[i].subSequence(34, 35).toString().contains("4"))){
+												System.out.print(linepos[6].substring(2, 3));
+											}
+											else {
+												System.out.print(linepos[6].substring(0, 1));
+											}
+											
 											lastTouch = linepos[5];
 												if (u==0 && linepos[5].contains(a)) {
 													u=1;
-													System.out.println("u -> " + linepos[5] + " = " + u + " à " + linepos[0] );
+													//System.out.println("u -> " + linepos[5] + " = " + u + " à " + linepos[0] );
 												}
 												if (v==0 && linepos[5].contains(b)) {
 													v=1;
-													System.out.println("v -> " + linepos[5] + " = " + v + " à " + linepos[0] );
+													//System.out.println("v -> " + linepos[5] + " = " + v + " à " + linepos[0] );
 												}
 												if (w==0 && linepos[5].equals(c)){
 													w=1;
-													System.out.println("w -> " + linepos[5] + " = " + w + " à " + linepos[0] );
+													//System.out.println("w -> " + linepos[5] + " = " + w + " à " + linepos[0] );
 												}
-												if (x==0 && (linepos[5].equals(d) || linepos[5].equals("endive") || linepos[5].equals("oignon") ) ){
+												if (x==0 && linepos[5].equals(d)){
 													x=1;
-													System.out.println("x -> " + linepos[5] + " = " + x + " à " + linepos[0] );
+													//System.out.println("x -> " + linepos[5] + " = " + x + " à " + linepos[0] );
 												}
 												if (y==0 && linepos[5].equals(e)){
 													y=1;
-													System.out.println("y -> " + linepos[5] + " = " + y + " à " + linepos[0] );
+													//System.out.println("y -> " + linepos[5] + " = " + y + " à " + linepos[0] );
 												}
 												if (z==0 && linepos[5].equals(f)){
 													z=1;
-													System.out.println("z -> " + linepos[5] + " = " + z + " à " + linepos[0] );
+													//System.out.println("z -> " + linepos[5] + " = " + z + " à " + linepos[0] );
 												}
 												if ( (u+v+w+x+y+z) == 6 && !displayTime){
 													fileWriterAnalysis.println(file[i].subSequence(16, 19)
@@ -235,9 +243,9 @@ public class Log2GPX_launcher {
 															+ ";"
 															+ Integer.parseInt(linepos[0])/1000 +"");
 													fileWriterAnalysis.flush();													
-													System.out.println(file[i].subSequence(16, 35)
-															+ " -> TIME TO DISCOVERY = " 
-															+ Integer.parseInt(linepos[0])/1000 + "s");
+													//System.out.println(file[i].subSequence(16, 35)
+															//+ " -> TIME TO DISCOVERY = " 
+															//+ Integer.parseInt(linepos[0])/1000 + "s");
 													displayTime = true;
 												}
 												                                         
@@ -255,7 +263,8 @@ public class Log2GPX_launcher {
 						fileWriter.close();
 						
 					j++;	
-					System.out.println(" File " + (j) + " : " + file[i].subSequence(16, 35)+ " -> done");	
+					System.out.println("");
+//					//System.out.println(" File " + (j) + " : " + file[i].subSequence(16, 35)+ " -> done");	
 					} // end of if contains csv
 				
 				} //end of for
