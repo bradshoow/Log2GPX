@@ -19,19 +19,15 @@ public class Log2GPX_launcher {
 
 	@SuppressWarnings("resource")
 	private void run() throws IOException, NullPointerException {
-		
-		///media/mathieu/26E07A43E07A196F/Documents and Settings/Mathieu/Dropbox/4TI_shared/Materiels/VisualisationConfiguration/OF1.png
-		// object to browse folder
+
 		File folder = new File("./data");
-		//File folder = new File("/media/mathieu/26E07A43E07A196F/Documents and Settings/Mathieu/Dropbox/4TI_local/explorationStrat/data");
 		String[] file = folder.list();
 		int j = 0;
 		
-		PrintWriter fileWriterAnalysis = new PrintWriter(new File( "./dataAnalysis/DiscoveryTime.csv"  ) );
+		PrintWriter fileWriterAnalysis = new PrintWriter(new File("./dataAnalysis/DiscoveryTime.csv"));
 		fileWriterAnalysis.println("Technique;participant;time");
 		fileWriterAnalysis.flush();
 
-		
 			// Main loop to treat each file of the previous folder
 			for (int i = 0 ; i < file.length ; i++ ){
 				// to determine all elements discovery time
@@ -41,8 +37,7 @@ public class Log2GPX_launcher {
 				// Condition to treat only csv
 				if (file[i].contains("csv")){
 					//Create .csv to analyse strat
-					// Create GPX and fill head
-					//PrintWriter fileWriter = new PrintWriter(new File( "/home/mathieu/Dropbox/4TI_local/explorationStrat/gpx/" 
+					//Create GPX and fill head 
 					PrintWriter fileWriter = new PrintWriter(new File( "./gpx/"
 							+ file[i].subSequence(16, 35) + ".gpx"  ) );
 					fileWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?> " + "\n" 
@@ -207,7 +202,7 @@ public class Log2GPX_launcher {
 												&& linepos[5].compareTo("stopSpeak")!=0
 												&& linepos[5].compareTo("list")!=0
 												&& linepos[5].compareTo("")!=0){
-											//System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
+											System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
 											lastTouch = linepos[5];
 												if (u==0 && linepos[5].contains(a)) {
 													u=1;
