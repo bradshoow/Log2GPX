@@ -27,6 +27,8 @@ public class Log2GPX_launcher {
 		PrintWriter fileWriterAnalysis = new PrintWriter(new File("./dataAnalysis/DiscoveryTime.csv"));
 		fileWriterAnalysis.println("Technique;participant;time");
 		fileWriterAnalysis.flush();
+		
+		PrintWriter fileWriterRegexResult = new PrintWriter(new File("./dataAnalysis/RegexResults.csv"));
 
 			// Main loop to treat each file of the previous folder
 			for (int i = 0 ; i < file.length ; i++ ){
@@ -49,7 +51,11 @@ public class Log2GPX_launcher {
 							+"<time>2011-09-10T13:31:33Z</time>"
 							+ "<bounds maxlat=\"49\" maxlon=\"-4\" minlat=\"48\" minlon=\"-5\"/>\n"
 							+ "</metadata>");
-					fileWriter.flush();					
+					fileWriter.flush();			
+					
+					PrintWriter fileWriterRegex = new PrintWriter(new File("./dataAnalysis/REGEX_"
+							+ file[i].subSequence(16, 35) + ".txt"));
+					
 					
 					// Write waypoints lines using regex
 					if (file[i].contains("OF1")) {
@@ -196,19 +202,49 @@ public class Log2GPX_launcher {
 											//+ "<ele> " + Integer.parseInt(linepos[0])/1000 + " </ele>"
 											+ "</trkpt>");
 									fileWriter.flush();
-									// write out elements touch
+									// write out touched element
 									if (linepos.length > 6){
 										if (linepos[5].compareTo(lastTouch)!=0 
 												&& linepos[5].compareTo("stopSpeak")!=0
 												&& linepos[5].compareTo("list")!=0
 												&& linepos[5].compareTo("")!=0){
 											//System.out.println(linepos[6] + "\t" + Integer.parseInt(linepos[0])/1000);
-											//
-											if ((file[i].subSequence(34, 35).toString().contains("4"))){
-												System.out.print(linepos[6].substring(2, 3));
+											// transform
+											if ((file[i].subSequence(34, 35).toString().contains("1"))){
+												if (linepos[6].substring(0, 1).equals("t"))fileWriterRegex.print("A");
+												if (linepos[6].substring(0, 1).equals("d"))fileWriterRegex.print("B");
+												if (linepos[6].substring(0, 1).equals("l"))fileWriterRegex.print("C");
+												if (linepos[6].substring(0, 1).equals("o"))fileWriterRegex.print("D");
+												if (linepos[6].substring(0, 1).equals("b"))fileWriterRegex.print("E");
+												if (linepos[6].substring(0, 1).equals("v"))fileWriterRegex.print("F");
+												fileWriterRegex.flush();
 											}
-											else {
-												System.out.print(linepos[6].substring(0, 1));
+											if ((file[i].subSequence(34, 35).toString().contains("2"))){
+												if (linepos[6].substring(0, 1).equals("f"))fileWriterRegex.print("A");
+												if (linepos[6].substring(0, 1).equals("m"))fileWriterRegex.print("B");
+												if (linepos[6].substring(0, 1).equals("l"))fileWriterRegex.print("C");
+												if (linepos[6].substring(0, 1).equals("p"))fileWriterRegex.print("D");
+												if (linepos[6].substring(0, 1).equals("c"))fileWriterRegex.print("E");
+												if (linepos[6].substring(0, 1).equals("t"))fileWriterRegex.print("F");
+												fileWriterRegex.flush();
+											}
+											if ((file[i].subSequence(34, 35).toString().contains("3"))){
+												if (linepos[6].substring(0, 1).equals("f"))fileWriterRegex.print("A");
+												if (linepos[6].substring(0, 1).equals("s"))fileWriterRegex.print("B");
+												if (linepos[6].substring(0, 1).equals("c"))fileWriterRegex.print("C");
+												if (linepos[6].substring(0, 1).equals("e"))fileWriterRegex.print("D");
+												if (linepos[6].substring(0, 1).equals("b"))fileWriterRegex.print("E");
+												if (linepos[6].substring(0, 1).equals("j"))fileWriterRegex.print("F");
+												fileWriterRegex.flush();
+											}						
+											if ((file[i].subSequence(34, 35).toString().contains("4"))){
+												if (linepos[6].substring(2, 3).equals("i"))fileWriterRegex.print("A");
+												if (linepos[6].substring(2, 3).equals("l"))fileWriterRegex.print("B");
+												if (linepos[6].substring(2, 3).equals("g"))fileWriterRegex.print("C");
+												if (linepos[6].substring(2, 3).equals("r"))fileWriterRegex.print("D");
+												if (linepos[6].substring(2, 3).equals("t"))fileWriterRegex.print("E");
+												if (linepos[6].substring(2, 3).equals("a"))fileWriterRegex.print("F");
+												fileWriterRegex.flush();
 											}
 											
 											lastTouch = linepos[5];
@@ -262,9 +298,79 @@ public class Log2GPX_launcher {
 						fileWriter.flush();
 						fileWriter.close();
 						
+						//Count Back-and-Forth strategies
+						BufferedReader bfReg = new BufferedReader(new FileReader("./dataAnalysis/REGEX_"
+								+ file[i].subSequence(16, 35) + ".txt"));
+							String lineReg = bfReg.readLine();
+							int countBaF = 0;
+							
+							String[] allBaF = {	"ABA" , "ACA" , "ADA" , "AEA" , "AFA" ,
+												"BAB" , "BCB" , "BDB" , "BEB" , "BFB" ,
+												"CAC" , "CBC" , "CDC" , "CEC" , "CFC" , 
+												"DAD" , "DBD" , "DCD" , "DED" , "DFD" ,
+												"EAE" , "EBE" , "ECE" , "EDE" , "EFE" , 
+												"FAF" , "FBF" , "FCF" , "FDF" , "FEF"
+							} ;
+							
+							for(int iReg = 0 ; iReg < allBaF.length ; iReg++){
+								Pattern p = Pattern.compile( "" + allBaF[iReg] ); 
+								Matcher m = p.matcher("" + lineReg);
+								while (m.find()){
+									countBaF++;
+									//System.out.println(allBaF[iReg] + " => FOUND");
+								}
+							}
+							System.out.println("Back-and-Forth => #### " + countBaF +" ####  FOUND");
+							fileWriterRegexResult.print("" + countBaF + ";");
+							fileWriterRegexResult.flush();
+							
+//
+//							int countCen = 0;							
+//							String[] allCen = {	"ABACA" , "BCDEFAB" , "CDEFABC" , "DEFABCD" , "EFABCDE" , "FABCDEF" , 
+//												"BAB" , "BCB" , "BDB" , "BEB" , "BFB" ,
+//												"CAC" , "CBC" , "CDC" , "CEC" , "CFC" , 
+//												"DAD" , "DBD" , "DCD" , "DED" , "DFD" ,
+//												"EAE" , "EBE" , "ECE" , "EDE" , "EFE" , 
+//												"FAF" , "FBF" , "FCF" , "FDF" , "FEF"
+//							} ;
+//							
+//							for(int iReg = 0 ; iReg < allBaF.length ; iReg++){
+//								Pattern p = Pattern.compile( "" + allBaF[iReg] ); 
+//								Matcher m = p.matcher("" + lineReg);
+//								while (m.find()){
+//									countBaF++;
+//									//System.out.println(allBaF[iReg] + " => FOUND");
+//								}
+//							}
+//							System.out.println("Back-and-Forth => #### " + countBaF +" ####  FOUND");
+//							fileWriterRegexResult.print("" + countBaF + ";");
+//							fileWriterRegexResult.flush();
+
+//							int countCyc = 0;
+//							String[] allCyc = {	"ABCDEFA" , "BCDEFAB" , "CDEFABC" , "DEFABCD" , "EFABCDE" , "FABCDEF" , 
+//												"BAB" , "BCB" , "BDB" , "BEB" , "BFB" ,
+//												"CAC" , "CBC" , "CDC" , "CEC" , "CFC" , 
+//												"DAD" , "DBD" , "DCD" , "DED" , "DFD" ,
+//												"EAE" , "EBE" , "ECE" , "EDE" , "EFE" , 
+//												"FAF" , "FBF" , "FCF" , "FDF" , "FEF"
+//							} ;
+//							
+//							for(int iReg = 0 ; iReg < allBaF.length ; iReg++){
+//								Pattern p = Pattern.compile( "" + allBaF[iReg] ); 
+//								Matcher m = p.matcher("" + lineReg);
+//								while (m.find()){
+//									countBaF++;
+//									//System.out.println(allBaF[iReg] + " => FOUND");
+//								}
+//							}
+//							System.out.println("Back-and-Forth => #### " + countBaF +" ####  FOUND");
+//							fileWriterRegexResult.print("" + countBaF + ";");
+//							fileWriterRegexResult.flush();
+							
+				
 					j++;	
+					System.out.println(" File " + (j) + " : " + file[i].subSequence(16, 35)+ " -> done");
 					System.out.println("");
-//					//System.out.println(" File " + (j) + " : " + file[i].subSequence(16, 35)+ " -> done");	
 					} // end of if contains csv
 				
 				} //end of for
