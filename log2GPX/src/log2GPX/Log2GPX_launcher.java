@@ -28,7 +28,8 @@ public class Log2GPX_launcher {
 		fileWriterAnalysis.println("Technique;participant;time");
 		fileWriterAnalysis.flush();
 		
-		PrintWriter fileWriterRegexResult = new PrintWriter(new File("./dataAnalysis/RegexResults.csv"));
+		PrintWriter fileWriterRegexBFResult = new PrintWriter(new File("./dataAnalysis/Regex_BF_Results.csv"));
+		PrintWriter fileWriterRegexCYResult = new PrintWriter(new File("./dataAnalysis/Regex_CY_Results.csv"));
 
 			// Main loop to treat each file of the previous folder
 			for (int i = 0 ; i < file.length ; i++ ){
@@ -298,12 +299,15 @@ public class Log2GPX_launcher {
 						fileWriter.flush();
 						fileWriter.close();
 						
-						//Count Back-and-Forth strategies
+						
+						
+						//Count strategies
 						BufferedReader bfReg = new BufferedReader(new FileReader("./dataAnalysis/REGEX_"
 								+ file[i].subSequence(16, 35) + ".txt"));
 							String lineReg = bfReg.readLine();
-							int countBaF = 0;
 							
+							
+							int countBaF = 0;						
 							String[] allBaF = {	"ABA" , "ACA" , "ADA" , "AEA" , "AFA" ,
 												"BAB" , "BCB" , "BDB" , "BEB" , "BFB" ,
 												"CAC" , "CBC" , "CDC" , "CEC" , "CFC" , 
@@ -312,6 +316,7 @@ public class Log2GPX_launcher {
 												"FAF" , "FBF" , "FCF" , "FDF" , "FEF"
 							} ;
 							
+							//Count BAF
 							for(int iReg = 0 ; iReg < allBaF.length ; iReg++){
 								Pattern p = Pattern.compile( "" + allBaF[iReg] ); 
 								Matcher m = p.matcher("" + lineReg);
@@ -321,9 +326,66 @@ public class Log2GPX_launcher {
 								}
 							}
 							System.out.println("Back-and-Forth => #### " + countBaF +" ####  FOUND");
-							fileWriterRegexResult.print("" + countBaF + ";");
-							fileWriterRegexResult.flush();
+							fileWriterRegexBFResult.print("" + countBaF + ";");
+							fileWriterRegexBFResult.flush();
+	
+							//Count cyclic
+							int countCyc = 0;	
+							String[] allCyclic = {"ABCDEF", "ABCDFE", "ABCEDF", "ABCEFD", "ABCFDE", "ABCFED", "ABDCEF", "ABDCFE", "ABDECF", "ABDEFC", "ABDFCE", "ABDFEC", "ABECDF", "ABECFD", "ABEDCF", "ABEDFC", "ABEFCD", "ABEFDC", "ABFCDE", "ABFCED", "ABFDCE", "ABFDEC", "ABFECD", "ABFEDC", "ACBDEF", "ACBDFE", "ACBEDF", "ACBEFD", "ACBFDE", "ACBFED", "ACDBEF", "ACDBFE", "ACDEBF", "ACDEFB", "ACDFBE", "ACDFEB", "ACEBDF", "ACEBFD", "ACEDBF", "ACEDFB", "ACEFBD", "ACEFDB", "ACFBDE", "ACFBED", "ACFDBE", "ACFDEB", "ACFEBD", "ACFEDB", "ADBCEF", "ADBCFE", "ADBECF", "ADBEFC", "ADBFCE", "ADBFEC", "ADCBEF", "ADCBFE", "ADCEBF", "ADCEFB", "ADCFBE", "ADCFEB", "ADEBCF", "ADEBFC", "ADECBF", "ADECFB", "ADEFBC", "ADEFCB", "ADFBCE", "ADFBEC", "ADFCBE", "ADFCEB", "ADFEBC", "ADFECB", "AEBCDF", "AEBCFD", "AEBDCF", "AEBDFC", "AEBFCD", "AEBFDC", "AECBDF", "AECBFD", "AECDBF", "AECDFB", "AECFBD", "AECFDB", "AEDBCF", "AEDBFC", "AEDCBF", "AEDCFB", "AEDFBC", "AEDFCB", "AEFBCD", "AEFBDC", "AEFCBD", "AEFCDB", "AEFDBC", "AEFDCB", "AFBCDE", "AFBCED", "AFBDCE", "AFBDEC", "AFBECD", "AFBEDC", "AFCBDE", "AFCBED", "AFCDBE", "AFCDEB", "AFCEBD", "AFCEDB", "AFDBCE", "AFDBEC", "AFDCBE", "AFDCEB", "AFDEBC", "AFDECB", "AFEBCD", "AFEBDC", "AFECBD", "AFECDB", "AFEDBC", "AFEDCB", "BACDEF", "BACDFE", "BACEDF", "BACEFD", "BACFDE", "BACFED", "BADCEF", "BADCFE", "BADECF", "BADEFC", "BADFCE", "BADFEC", "BAECDF", "BAECFD", "BAEDCF", "BAEDFC", "BAEFCD", "BAEFDC", "BAFCDE", "BAFCED", "BAFDCE", "BAFDEC", "BAFECD", "BAFEDC", "BCADEF", "BCADFE", "BCAEDF", "BCAEFD", "BCAFDE", "BCAFED", "BCDAEF", "BCDAFE", "BCDEAF", "BCDEFA", "BCDFAE", "BCDFEA", "BCEADF", "BCEAFD", "BCEDAF", "BCEDFA", "BCEFAD", "BCEFDA", "BCFADE", "BCFAED", "BCFDAE", "BCFDEA", "BCFEAD", "BCFEDA", "BDACEF", "BDACFE", "BDAECF", "BDAEFC", "BDAFCE", "BDAFEC", "BDCAEF", "BDCAFE", "BDCEAF", "BDCEFA", "BDCFAE", "BDCFEA", "BDEACF", "BDEAFC", "BDECAF", "BDECFA", "BDEFAC", "BDEFCA", "BDFACE", "BDFAEC", "BDFCAE", "BDFCEA", "BDFEAC", "BDFECA", "BEACDF", "BEACFD", "BEADCF", "BEADFC", "BEAFCD", "BEAFDC", "BECADF", "BECAFD", "BECDAF", "BECDFA", "BECFAD", "BECFDA", "BEDACF", "BEDAFC", "BEDCAF", "BEDCFA", "BEDFAC", "BEDFCA", "BEFACD", "BEFADC", "BEFCAD", "BEFCDA", "BEFDAC", "BEFDCA", "BFACDE", "BFACED", "BFADCE", "BFADEC", "BFAECD", "BFAEDC", "BFCADE", "BFCAED", "BFCDAE", "BFCDEA", "BFCEAD", "BFCEDA", "BFDACE", "BFDAEC", "BFDCAE", "BFDCEA", "BFDEAC", "BFDECA", "BFEACD", "BFEADC", "BFECAD", "BFECDA", "BFEDAC", "BFEDCA", "CABDEF", "CABDFE", "CABEDF", "CABEFD", "CABFDE", "CABFED", "CADBEF", "CADBFE", "CADEBF", "CADEFB", "CADFBE", "CADFEB", "CAEBDF", "CAEBFD", "CAEDBF", "CAEDFB", "CAEFBD", "CAEFDB", "CAFBDE", "CAFBED", "CAFDBE", "CAFDEB", "CAFEBD", "CAFEDB", "CBADEF", "CBADFE", "CBAEDF", "CBAEFD", "CBAFDE", "CBAFED", "CBDAEF", "CBDAFE", "CBDEAF", "CBDEFA", "CBDFAE", "CBDFEA", "CBEADF", "CBEAFD", "CBEDAF", "CBEDFA", "CBEFAD", "CBEFDA", "CBFADE", "CBFAED", "CBFDAE", "CBFDEA", "CBFEAD", "CBFEDA", "CDABEF", "CDABFE", "CDAEBF", "CDAEFB", "CDAFBE", "CDAFEB", "CDBAEF", "CDBAFE", "CDBEAF", "CDBEFA", "CDBFAE", "CDBFEA", "CDEABF", "CDEAFB", "CDEBAF", "CDEBFA", "CDEFAB", "CDEFBA", "CDFABE", "CDFAEB", "CDFBAE", "CDFBEA", "CDFEAB", "CDFEBA", "CEABDF", "CEABFD", "CEADBF", "CEADFB", "CEAFBD", "CEAFDB", "CEBADF", "CEBAFD", "CEBDAF", "CEBDFA", "CEBFAD", "CEBFDA", "CEDABF", "CEDAFB", "CEDBAF", "CEDBFA", "CEDFAB", "CEDFBA", "CEFABD", "CEFADB", "CEFBAD", "CEFBDA", "CEFDAB", "CEFDBA", "CFABDE", "CFABED", "CFADBE", "CFADEB", "CFAEBD", "CFAEDB", "CFBADE", "CFBAED", "CFBDAE", "CFBDEA", "CFBEAD", "CFBEDA", "CFDABE", "CFDAEB", "CFDBAE", "CFDBEA", "CFDEAB", "CFDEBA", "CFEABD", "CFEADB", "CFEBAD", "CFEBDA", "CFEDAB", "CFEDBA", "DABCEF", "DABCFE", "DABECF", "DABEFC", "DABFCE", "DABFEC", "DACBEF", "DACBFE", "DACEBF", "DACEFB", "DACFBE", "DACFEB", "DAEBCF", "DAEBFC", "DAECBF", "DAECFB", "DAEFBC", "DAEFCB", "DAFBCE", "DAFBEC", "DAFCBE", "DAFCEB", "DAFEBC", "DAFECB", "DBACEF", "DBACFE", "DBAECF", "DBAEFC", "DBAFCE", "DBAFEC", "DBCAEF", "DBCAFE", "DBCEAF", "DBCEFA", "DBCFAE", "DBCFEA", "DBEACF", "DBEAFC", "DBECAF", "DBECFA", "DBEFAC", "DBEFCA", "DBFACE", "DBFAEC", "DBFCAE", "DBFCEA", "DBFEAC", "DBFECA", "DCABEF", "DCABFE", "DCAEBF", "DCAEFB", "DCAFBE", "DCAFEB", "DCBAEF", "DCBAFE", "DCBEAF", "DCBEFA", "DCBFAE", "DCBFEA", "DCEABF", "DCEAFB", "DCEBAF", "DCEBFA", "DCEFAB", "DCEFBA", "DCFABE", "DCFAEB", "DCFBAE", "DCFBEA", "DCFEAB", "DCFEBA", "DEABCF", "DEABFC", "DEACBF", "DEACFB", "DEAFBC", "DEAFCB", "DEBACF", "DEBAFC", "DEBCAF", "DEBCFA", "DEBFAC", "DEBFCA", "DECABF", "DECAFB", "DECBAF", "DECBFA", "DECFAB", "DECFBA", "DEFABC", "DEFACB", "DEFBAC", "DEFBCA", "DEFCAB", "DEFCBA", "DFABCE", "DFABEC", "DFACBE", "DFACEB", "DFAEBC", "DFAECB", "DFBACE", "DFBAEC", "DFBCAE", "DFBCEA", "DFBEAC", "DFBECA", "DFCABE", "DFCAEB", "DFCBAE", "DFCBEA", "DFCEAB", "DFCEBA", "DFEABC", "DFEACB", "DFEBAC", "DFEBCA", "DFECAB", "DFECBA", "EABCDF", "EABCFD", "EABDCF", "EABDFC", "EABFCD", "EABFDC", "EACBDF", "EACBFD", "EACDBF", "EACDFB", "EACFBD", "EACFDB", "EADBCF", "EADBFC", "EADCBF", "EADCFB", "EADFBC", "EADFCB", "EAFBCD", "EAFBDC", "EAFCBD", "EAFCDB", "EAFDBC", "EAFDCB", "EBACDF", "EBACFD", "EBADCF", "EBADFC", "EBAFCD", "EBAFDC", "EBCADF", "EBCAFD", "EBCDAF", "EBCDFA", "EBCFAD", "EBCFDA", "EBDACF", "EBDAFC", "EBDCAF", "EBDCFA", "EBDFAC", "EBDFCA", "EBFACD", "EBFADC", "EBFCAD", "EBFCDA", "EBFDAC", "EBFDCA", "ECABDF", "ECABFD", "ECADBF", "ECADFB", "ECAFBD", "ECAFDB", "ECBADF", "ECBAFD", "ECBDAF", "ECBDFA", "ECBFAD", "ECBFDA", "ECDABF", "ECDAFB", "ECDBAF", "ECDBFA", "ECDFAB", "ECDFBA", "ECFABD", "ECFADB", "ECFBAD", "ECFBDA", "ECFDAB", "ECFDBA", "EDABCF", "EDABFC", "EDACBF", "EDACFB", "EDAFBC", "EDAFCB", "EDBACF", "EDBAFC", "EDBCAF", "EDBCFA", "EDBFAC", "EDBFCA", "EDCABF", "EDCAFB", "EDCBAF", "EDCBFA", "EDCFAB", "EDCFBA", "EDFABC", "EDFACB", "EDFBAC", "EDFBCA", "EDFCAB", "EDFCBA", "EFABCD", "EFABDC", "EFACBD", "EFACDB", "EFADBC", "EFADCB", "EFBACD", "EFBADC", "EFBCAD", "EFBCDA", "EFBDAC", "EFBDCA", "EFCABD", "EFCADB", "EFCBAD", "EFCBDA", "EFCDAB", "EFCDBA", "EFDABC", "EFDACB", "EFDBAC", "EFDBCA", "EFDCAB", "EFDCBA", "FABCDE", "FABCED", "FABDCE", "FABDEC", "FABECD", "FABEDC", "FACBDE", "FACBED", "FACDBE", "FACDEB", "FACEBD", "FACEDB", "FADBCE", "FADBEC", "FADCBE", "FADCEB", "FADEBC", "FADECB", "FAEBCD", "FAEBDC", "FAECBD", "FAECDB", "FAEDBC", "FAEDCB", "FBACDE", "FBACED", "FBADCE", "FBADEC", "FBAECD", "FBAEDC", "FBCADE", "FBCAED", "FBCDAE", "FBCDEA", "FBCEAD", "FBCEDA", "FBDACE", "FBDAEC", "FBDCAE", "FBDCEA", "FBDEAC", "FBDECA", "FBEACD", "FBEADC", "FBECAD", "FBECDA", "FBEDAC", "FBEDCA", "FCABDE", "FCABED", "FCADBE", "FCADEB", "FCAEBD", "FCAEDB", "FCBADE", "FCBAED", "FCBDAE", "FCBDEA", "FCBEAD", "FCBEDA", "FCDABE", "FCDAEB", "FCDBAE", "FCDBEA", "FCDEAB", "FCDEBA", "FCEABD", "FCEADB", "FCEBAD", "FCEBDA", "FCEDAB", "FCEDBA", "FDABCE", "FDABEC", "FDACBE", "FDACEB", "FDAEBC", "FDAECB", "FDBACE", "FDBAEC", "FDBCAE", "FDBCEA", "FDBEAC", "FDBECA", "FDCABE", "FDCAEB", "FDCBAE", "FDCBEA", "FDCEAB", "FDCEBA", "FDEABC", "FDEACB", "FDEBAC", "FDEBCA", "FDECAB", "FDECBA", "FEABCD", "FEABDC", "FEACBD", "FEACDB", "FEADBC", "FEADCB", "FEBACD", "FEBADC", "FEBCAD", "FEBCDA", "FEBDAC", "FEBDCA", "FECABD", "FECADB", "FECBAD", "FECBDA", "FECDAB", "FECDBA", "FEDABC", "FEDACB", "FEDBAC", "FEDBCA", "FEDCAB", "FEDCBA"};
 							
+							for(int iReg = 0 ; iReg < allCyclic.length ; iReg++){
+								Pattern p = Pattern.compile( "" + allCyclic[iReg] ); 
+								Matcher m = p.matcher("" + lineReg);
+								while (m.find()){
+									countCyc++;
+									//System.out.println(allCyclic[iReg] + " => FOUND");
+								}
+							}
+							System.out.println("Cyclic => #### " + countCyc +" ####  FOUND");
+							fileWriterRegexCYResult.print("" + countCyc + ";");
+							fileWriterRegexCYResult.flush();
+							
+							 
+/*		// TENTATIVE D'ARRANGEMENT					
+	
+							char[] cyclicArrangement = {9,9,9,9,9,9};
+							for (int ia=0;ia<6;ia++){
+								cyclicArrangement[ia]='A';
+								for (int ib=0;ib<6;ib++){
+									if (ia != ib) cyclicArrangement[ib]='B';
+									for (int ic=0;ic<6;ic++){
+										if ( (ic != ia) 
+										  && (ic != ib)  ) cyclicArrangement[ic]='C';
+										for (int id=0;id<6;id++){
+											if ( (id != ia) 
+											  && (id != ib)
+										      && (id != ic)  ) cyclicArrangement[id]='D';
+											for (int ie=0;ie<6;ie++){
+												if ( (ie != ia) 
+												  && (ie != ib)
+												  && (ie != ic)
+											      && (ie != id)  ) cyclicArrangement[ie]='E';
+													for (int iF=0;iF<6;iF++){
+														if ( (iF != ia) 
+														  && (iF != ib)
+														  && (iF != ic)
+														  && (iF != id)
+													      && (iF != ie)  ) {
+															cyclicArrangement[iF]='F';
+															System.out.println(""	+ cyclicArrangement[0] 
+																					+ cyclicArrangement[1]
+																					+ cyclicArrangement[2] 
+																					+ cyclicArrangement[3]
+																					+ cyclicArrangement[4] 
+																					+ cyclicArrangement[5]);
+														}//end of final if
+													}//end of iF 
+												}//end of iE
+											}//end of iD
+										}//end of iC
+									} //end of iB
+								}// end of iA
+							*/
 //
 //							int countCen = 0;							
 //							String[] allCen = {	"ABACA" , "BCDEFAB" , "CDEFABC" , "DEFABCD" , "EFABCDE" , "FABCDEF" , 
