@@ -304,8 +304,7 @@ public class Log2GPX_launcher {
 						//Count strategies
 						BufferedReader bfReg = new BufferedReader(new FileReader("./dataAnalysis/REGEX_"
 								+ file[i].subSequence(16, 35) + ".txt"));
-							String lineReg = bfReg.readLine();
-							
+							String lineReg = bfReg.readLine();	
 							
 							int countBaF = 0;						
 							String[] allBaF = {	"ABA" , "ACA" , "ADA" , "AEA" , "AFA" ,
@@ -326,7 +325,7 @@ public class Log2GPX_launcher {
 								}
 							}
 							System.out.println("Back-and-Forth => #### " + countBaF +" ####  FOUND");
-							fileWriterRegexBFResult.print("" + countBaF + ";");
+							fileWriterRegexBFResult.print(file[i].subSequence(16,19)+ ";" + countBaF + "\n");
 							fileWriterRegexBFResult.flush();
 	
 							//Count cyclic
@@ -342,7 +341,7 @@ public class Log2GPX_launcher {
 								}
 							}
 							System.out.println("Cyclic => #### " + countCyc +" ####  FOUND");
-							fileWriterRegexCYResult.print("" + countCyc + ";");
+							fileWriterRegexCYResult.print(file[i].subSequence(16,19)+ ";" + countCyc + "\n");
 							fileWriterRegexCYResult.flush();
 							
 							 
